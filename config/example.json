@@ -2,9 +2,9 @@
     "train_csv": "/Path/to/train.csv",
     "dev_csv": "/Path/to/dev.csv",
     "backbone": "densenet121",
-    "width": 512,
-    "height": 512,
-    "long_side": 512,
+    "width": 640,
+    "height": 640,
+    "long_side": 640,
     "fix_ratio": true,
     "pixel_mean": 128.0,
     "pixel_std": 64.0,
@@ -13,11 +13,26 @@
     "use_transforms_type": "Aug",
     "gaussian_blur": 3,
     "border_pad": "pixel_mean",
-    "num_classes": [1,1,1,1,1],
+    "num_classes": [
+        1,
+        1,
+        1,
+        1,
+        1
+    ],
     "batch_weight": true,
-    "enhance_index": [2,6],
+    "enhance_index": [
+        2,
+        6
+    ],
     "enhance_times": 1,
-    "pos_weight": [1,1,1,1,1],
+    "pos_weight": [
+        1,
+        1,
+        1,
+        1,
+        1
+    ],
     "train_batch_size": 56,
     "dev_batch_size": 56,
     "pretrained": true,
@@ -34,10 +49,18 @@
     "criterion": "BCE",
     "lr": 0.0001,
     "lr_factor": 0.1,
-    "lr_epochs": [2],
+    "lr_epochs": [
+        2
+    ],
     "momentum": 0.9,
     "weight_decay": 0.0,
     "best_target": "auc",
     "save_top_k": 3,
-    "save_index": [0,1,2,3,4]
+    "save_index": [
+        0,
+        1,
+        2,
+        3,
+        4
+    ]
 }

@@ -111,16 +111,21 @@ class ImageDataset(Dataset):
             image = cv2.equalizeHist(image)
 
         image = cv2.cvtColor(image, cv2.COLOR_GRAY2RGB).astype(np.float32)
-
+# changed the resolution of the img from 512 to 640 all around to see if produces better results
+# chaged the interpolation method from INTER_LINEAR to INTER_AREA which resamples using pixel area relation.
+# possibly better results with inter_area if no zooming is applied
         if self.cfg.fix_ratio:
             image = self._fix_ratio(image)
         else:
             image = cv2.resize(image, dsize=(self.cfg.width, self.cfg.height),
-                               interpolation=cv2.INTER_LINEAR)
+                               interpolation=cv2.INTER_AREA)
 
+# chaged the smoothing of the image:
+#   changed from gaussian_blur to bilateralFiltering, which is a better version, which simplifies the img but preserve edges
+#   it can run a little slower than gaussian_blur since it a more complex process, but might improve results
+#   left the if statement unchanged, just to filter the same imgs than before.
         if self.cfg.gaussian_blur > 0:
-            image = cv2.GaussianBlur(image, (self.cfg.gaussian_blur,
-                                             self.cfg.gaussian_blur), 0)
+            image = cv2.bilateralFilter(image, 9, 75, 75)
 
         # normalization
         image -= self.cfg.pixel_mean
