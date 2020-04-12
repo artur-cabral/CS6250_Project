@@ -3,6 +3,7 @@ from torch.utils.data import Dataset
 import cv2
 from PIL import Image
 from data.imgaug import GetTransforms
+import os
 
 np.random.seed(0)
 
@@ -102,7 +103,15 @@ class ImageDataset(Dataset):
         return image
 
     def __getitem__(self, idx):
-        image = cv2.imread(self._image_paths[idx], 0)
+        # print(os.getcwd())
+        # print(path_test)
+        path_test = os.path.join(os.getcwd(),'Chexpert/data/nas',self._image_paths[idx])
+        # print(path_test)
+        # print(self._image_paths[idx])
+        # testing = cv2.imread()
+        # image = cv2.imread(self._image_paths[idx], 0)
+        image = cv2.imread(path_test, 0)
+        # print(image)
         image = Image.fromarray(image)
         if self._mode == 'train':
             image = GetTransforms(image, type=self.cfg.use_transforms_type)

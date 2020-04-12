@@ -24,7 +24,7 @@ torch.cuda.manual_seed_all(0)
 
 from data.dataset import ImageDataset  # noqa
 from model.classifier import Classifier  # noqa
-from utils.misc import lr_schedule  # noqa
+from utilss.miscc import lr_schedule  # noqa
 from model.utils import get_optimizer  # noqa
 
 parser = argparse.ArgumentParser(description='Train model')
@@ -313,14 +313,15 @@ def run(args):
 
     src_folder = os.path.dirname(os.path.abspath(__file__)) + '/../'
     dst_folder = os.path.join(args.save_path, 'classification')
-    rc, size = subprocess.getstatusoutput('du --max-depth=0 %s | cut -f1'
-                                          % src_folder)
-    if rc != 0:
-        raise Exception('Copy folder error : {}'.format(rc))
-    rc, err_msg = subprocess.getstatusoutput('cp -R %s %s' % (src_folder,
-                                                              dst_folder))
-    if rc != 0:
-        raise Exception('copy folder error : {}'.format(err_msg))
+    # rc, size = subprocess.getstatusoutput('dir --max-depth=0 %s | cut -f1'
+    #                                       % src_folder)
+    # if rc != 0:
+    #     print(size)
+    #     raise Exception('Copy folder error : {}'.format(rc))
+    # rc, err_msg = subprocess.getstatusoutput('cp -R %s %s' % (src_folder,
+    #                                                           dst_folder))
+    # if rc != 0:
+    #     raise Exception('copy folder error : {}'.format(err_msg))
 
     copyfile(cfg.train_csv, os.path.join(args.save_path, 'train.csv'))
     copyfile(cfg.dev_csv, os.path.join(args.save_path, 'dev.csv'))
